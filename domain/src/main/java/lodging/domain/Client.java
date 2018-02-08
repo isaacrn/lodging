@@ -7,26 +7,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Client {
 
     @Id
-    private long id;
+    private String idClient;
     private String name;
     private String cpf;
 
-    protected Client() {
-    }
+    public Client(String name, String cpf) {
 
-    public Client(long id, String name, String cpf) {
-
-        this.id = id;
         this.name = name;
         this.cpf = cpf;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    public String getIdClient() {
+        return idClient;
     }
 
     public String getName() {

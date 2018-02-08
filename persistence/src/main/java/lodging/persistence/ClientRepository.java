@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import lodging.domain.Client;
 
 @Repository
-public interface ClientRepository extends MongoRepository<Client, Long> {
+public interface ClientRepository extends MongoRepository<Client, String> {
 }

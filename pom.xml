@@ -11,7 +11,8 @@
         <module>domain</module>
 		<module>persistence</module>
 		<module>controller</module>
-	</modules>
+        <module>model</module>
+    </modules>
 
     <packaging>pom</packaging>
 
