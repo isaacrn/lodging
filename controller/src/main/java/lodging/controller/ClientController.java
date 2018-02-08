@@ -2,7 +2,6 @@ package lodging.controller;
 
 import java.util.List;
 
-import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,13 +33,15 @@ public class ClientController {
     @PostMapping("/addClient")
     public void addClient(@RequestBody AddClientRequest addClientRequest) {
         Client client = new Client(addClientRequest.getName(), addClientRequest.getCpf());
-        clientRepository.save(client);
+        clientRepository.insert(client);
     }
 
     @PutMapping("/editClient/{id}")
-    public void editClient(@PathVariable("id") String id, @RequestBody AddClientRequest addClientRequest) {
-        Client client = new Client(addClientRequest.getName(), addClientRequest.getCpf());
-        this.clientRepository.save(client);
+    public void update(@PathVariable String id, @RequestBody AddClientRequest addClientRequest){
+        Client client = clientRepository.findOne(id);
+        client.setName(addClientRequest.getName());
+        client.setCpf(addClientRequest.getCpf());
+        clientRepository.save(client);
     }
 
     @DeleteMapping("/{id}")
