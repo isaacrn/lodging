@@ -1,6 +1,5 @@
 package lodging.domain;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -8,13 +7,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Suite {
 
     @Id
-    ObjectId idSuite = new ObjectId();
+    private String idSuite;
     private String nameSuite;
     private String typeSuite;
     private int numberSuite;
     private RoomItems roomItems;
 
-    public ObjectId getIdSuite() {
+    public String getIdSuite() {
         return idSuite;
     }
 

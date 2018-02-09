@@ -12,7 +12,6 @@ public class Client {
     private String cpf;
 
     public Client(String name, String cpf) {
-
         this.name = name;
         this.cpf = cpf;
     }

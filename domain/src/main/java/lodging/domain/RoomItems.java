@@ -1,6 +1,5 @@
 package lodging.domain;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -8,13 +7,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class RoomItems {
 
     @Id
-    private ObjectId idRoomItem = new ObjectId();
+    private String idRoomItem;
     private String itemDescription;
     private Float entryValue;
     private Float outValue;
     private Item item;
 
-    public ObjectId getIdRoomItem() {
+    public String getIdRoomItem() {
         return idRoomItem;
     }
 
@@ -40,5 +39,13 @@ public class RoomItems {
 
     public void setOutValue(Float outValue) {
         this.outValue = outValue;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
     }
 }

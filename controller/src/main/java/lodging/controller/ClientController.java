@@ -25,7 +25,7 @@ public class ClientController {
         this.clientRepository = clientRepository;
     }
 
-    @GetMapping("/all")
+    @GetMapping("/allClient")
     public List<Client> getClients() {
         return this.clientRepository.findAll();
     }
@@ -36,16 +36,21 @@ public class ClientController {
         clientRepository.insert(client);
     }
 
-    @PutMapping("/editClient/{id}")
-    public void update(@PathVariable String id, @RequestBody AddClientRequest addClientRequest){
+    @PutMapping("/updateClient/{id}")
+    public void updateClient(@PathVariable String id, @RequestBody AddClientRequest addClientRequest){
         Client client = clientRepository.findOne(id);
-        client.setName(addClientRequest.getName());
-        client.setCpf(addClientRequest.getCpf());
-        clientRepository.save(client);
+        clientRepository.save(editClient(client, addClientRequest));
     }
 
-    @DeleteMapping("/{id}")
+    private Client editClient(Client client, AddClientRequest addClientRequest) {
+        client.setName(addClientRequest.getName());
+        client.setCpf(addClientRequest.getCpf());
+        return client;
+    }
+
+    @DeleteMapping("/deleteClient/{id}")
     public void deleteClient(@PathVariable("id") String id) {
         this.clientRepository.delete(id);
     }
+
 }
