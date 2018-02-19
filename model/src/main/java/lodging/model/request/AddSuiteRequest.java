@@ -1,22 +1,10 @@
-package lodging.domain;
+package lodging.model.request;
 
-import javax.persistence.Entity;
-
-@Entity
-public class Suite extends AbstractEntity{
+public class AddSuiteRequest {
 
     private String nameSuite;
     private String typeSuite;
     private int numberSuite;
-
-    public Suite(String nameSuite, String typeSuite, int numberSuite) {
-        this.nameSuite = nameSuite;
-        this.typeSuite = typeSuite;
-        this.numberSuite = numberSuite;
-    }
-
-    public Suite() {
-    }
 
     public String getNameSuite() {
         return nameSuite;

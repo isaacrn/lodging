@@ -20,12 +20,8 @@ import lodging.persistence.ClientRepository;
 @RequestMapping("/clients")
 public class ClientController {
 
-    private final ClientRepository clientRepository;
-
     @Autowired
-    public ClientController(ClientRepository clientRepository) {
-        this.clientRepository = clientRepository;
-    }
+    private ClientRepository clientRepository;
 
     @GetMapping("/allClient")
     public ResponseEntity<?> getClients() {
