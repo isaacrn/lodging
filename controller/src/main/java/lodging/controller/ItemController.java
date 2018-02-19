@@ -1,7 +1,8 @@
 package lodging.controller;
 
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,25 +22,26 @@ public class ItemController {
 
     private ItemRepository itemRepository;
 
+    @Autowired
     public ItemController(ItemRepository itemRepository) {
         this.itemRepository = itemRepository;
     }
 
     @GetMapping("/allItems")
-    public List<Item> getItems() {
-        return itemRepository.findAll();
+    public ResponseEntity<?> getItems() {
+        return new ResponseEntity<>(itemRepository.findAll(), HttpStatus.OK);
     }
 
     @PostMapping("/addItem")
-    public void addItem(@RequestBody AddItemRequest addItemRequest) {
+    public ResponseEntity<?> addItem(@RequestBody AddItemRequest addItemRequest) {
         Item item = new Item(addItemRequest.getNameItem(), addItemRequest.getQuantity());
-        itemRepository.insert(item);
+        return new ResponseEntity<>(itemRepository.save(item), HttpStatus.OK);
     }
 
     @PutMapping("/updateItem/{id}")
-    public void updateItem(@PathVariable String id, @RequestBody AddItemRequest addItemRequest) {
+    public ResponseEntity<?> updateItem(@PathVariable Long id, @RequestBody AddItemRequest addItemRequest) {
         Item item = itemRepository.findOne(id);
-        itemRepository.save(editItem(item, addItemRequest));
+        return new ResponseEntity<>(itemRepository.save(editItem(item, addItemRequest)), HttpStatus.OK);
     }
 
     private Item editItem(Item item, AddItemRequest addItemRequest) {
@@ -49,7 +51,8 @@ public class ItemController {
     }
 
     @DeleteMapping("/deleteItem/{id}")
-    public void deleteItem(@PathVariable("id") String id) {
-        this.itemRepository.delete(id);
+    public ResponseEntity<?> deleteItem(@PathVariable("id") Long id) {
+        itemRepository.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

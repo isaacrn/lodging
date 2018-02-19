@@ -1,20 +1,16 @@
 package lodging.domain;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import javax.persistence.Entity;
 
-@Document(collection = "Suites")
-public class Suite {
+@Entity
+public class Suite extends AbstractEntity{
 
-    @Id
-    private String idSuite;
     private String nameSuite;
     private String typeSuite;
     private int numberSuite;
     private RoomItems roomItems;
 
-    public String getIdSuite() {
-        return idSuite;
+    public Suite() {
     }
 
     public String getNameSuite() {

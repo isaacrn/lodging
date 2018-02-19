@@ -1,13 +1,11 @@
 package lodging.domain;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import javax.persistence.Entity;
 
-@Document(collection = "Items")
-public class Item {
+@Entity
+public class Item extends AbstractEntity{
 
-    @Id
-    private String idItem;
+
     private String nameItem;
     private int quantity;
 
@@ -16,8 +14,7 @@ public class Item {
         this.quantity = quantity;
     }
 
-    public String getIdItem() {
-        return idItem;
+    public Item() {
     }
 
     public String getNameItem() {

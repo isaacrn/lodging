@@ -1,7 +1,8 @@
 package lodging.controller;
 
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,27 +20,28 @@ import lodging.persistence.ClientRepository;
 @RequestMapping("/clients")
 public class ClientController {
 
-    private ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
 
+    @Autowired
     public ClientController(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
     }
 
     @GetMapping("/allClient")
-    public List<Client> getClients() {
-        return this.clientRepository.findAll();
+    public ResponseEntity<?> getClients() {
+        return new ResponseEntity<>(clientRepository.findAll(), HttpStatus.OK);
     }
 
     @PostMapping("/addClient")
-    public void addClient(@RequestBody AddClientRequest addClientRequest) {
+    public ResponseEntity<?> addClient(@RequestBody AddClientRequest addClientRequest) {
         Client client = new Client(addClientRequest.getName(), addClientRequest.getCpf());
-        clientRepository.insert(client);
+        return new ResponseEntity<>(clientRepository.save(client), HttpStatus.OK);
     }
 
     @PutMapping("/updateClient/{id}")
-    public void updateClient(@PathVariable String id, @RequestBody AddClientRequest addClientRequest){
+    public ResponseEntity<?> updateClient(@PathVariable Long id, @RequestBody AddClientRequest addClientRequest){
         Client client = clientRepository.findOne(id);
-        clientRepository.save(editClient(client, addClientRequest));
+        return new ResponseEntity<>(clientRepository.save(editClient(client, addClientRequest)), HttpStatus.OK);
     }
 
     private Client editClient(Client client, AddClientRequest addClientRequest) {
@@ -49,8 +51,8 @@ public class ClientController {
     }
 
     @DeleteMapping("/deleteClient/{id}")
-    public void deleteClient(@PathVariable("id") String id) {
-        this.clientRepository.delete(id);
+    public ResponseEntity<?> deleteClient(@PathVariable("id") Long id) {
+        clientRepository.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }

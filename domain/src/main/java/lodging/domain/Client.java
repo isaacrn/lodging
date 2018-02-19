@@ -1,13 +1,10 @@
 package lodging.domain;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import javax.persistence.Entity;
 
-@Document(collection = "Clients")
-public class Client {
+@Entity
+public class Client extends AbstractEntity{
 
-    @Id
-    private String idClient;
     private String name;
     private String cpf;
 
@@ -16,8 +13,7 @@ public class Client {
         this.cpf = cpf;
     }
 
-    public String getIdClient() {
-        return idClient;
+    public Client() {
     }
 
     public String getName() {
