@@ -7,4 +7,5 @@ import lodging.data.Client;
 
 @Repository
 public interface ClientRepository extends CrudRepository<Client, Long> {
+
 }
